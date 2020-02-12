@@ -1,4 +1,5 @@
 import React from "react";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 import "./App.css";
 
@@ -54,45 +55,84 @@ const App = () => {
   };
 
   return (
-    <div className="App">
-      <header>
-        {isTitleEdit ? (
-          <form onSubmit={changeTitle}>
-            <input
-              type="text"
-              onChange={handleTitleChange}
-              value={titleChange}
-            />
-            <button>Save Title</button>
-          </form>
-        ) : (
-          <h1 onClick={toggleTitleEdit}>{title}</h1>
-        )}
-      </header>
-      <main>
-        <div className="container">
-          <ul>
-            {posts
-              .filter((post, index) => index >= posts.length - 3)
-              .map(post => (
-                <li>
-                  <div>
-                    <header>{post.title}</header>
-                    <figure>
-                      <img src={post.imgUrl} alt={post.title} />
-                    </figure>
-                    <p>{post.body}</p>
-                  </div>
-                </li>
-              ))
-              .reverse()}
-          </ul>
-        </div>
-      </main>
-      <footer>
-        <small>&copy; {new Date().getFullYear()} Kitten Mittens</small>
-      </footer>
-    </div>
+    <Router>
+      <div className="App">
+        <header>
+          {isTitleEdit ? (
+            <form onSubmit={changeTitle}>
+              <input
+                type="text"
+                onChange={handleTitleChange}
+                value={titleChange}
+              />
+              <button>Save Title</button>
+            </form>
+          ) : (
+            <h1 onClick={toggleTitleEdit}>{title}</h1>
+          )}
+          <nav className="main-nav">
+            <ul>
+              <li>
+                <Link to="/">Home</Link>
+              </li>
+              <li>
+                <Link to={"/all-posts"}>All Posts</Link>
+              </li>
+            </ul>
+          </nav>
+        </header>
+        <main>
+          <Switch>
+            <Route exact path="/">
+              <div className="container">
+                <section className="home">
+                  <ul>
+                    {posts
+                      .filter((postUnused, index) => index >= posts.length - 3)
+                      .map(post => (
+                        <li className="underline">
+                          <div className="post">
+                            <header>{post.title}</header>
+                            <figure>
+                              <img src={post.imgUrl} alt={post.title} />
+                            </figure>
+                            <p>{post.body}</p>
+                          </div>
+                        </li>
+                      ))
+                      .reverse()}
+                  </ul>
+                </section>
+              </div>
+            </Route>
+            <Route path="/all-posts">
+              <div className="container">
+                <section className="all-posts">
+                  <ul>
+                    {posts
+                      .map(post => (
+                        <li>
+                          <div>
+                            <header>{post.title}</header>
+                            <figure>
+                              <img src={post.imgUrl} alt={post.title} />
+                            </figure>
+                            <p>{post.body}</p>
+                          </div>
+                        </li>
+                      ))
+                      .reverse()}
+                  </ul>
+                </section>
+              </div>
+            </Route>
+          </Switch>
+        </main>
+        <footer>
+          <small>&copy; {new Date().getFullYear()} Kitten Mittens</small>
+        </footer>
+      </div>
+    </Router>
   );
 };
 

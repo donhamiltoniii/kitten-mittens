@@ -5,19 +5,60 @@
 }
 
 /* CSS to refactor */
+
+/* COMPONENTS */
+
+/* Container */
+.container {
+  background-color: #fff;
+  margin: 0 auto;
+  max-width: 30rem;
+  width: 90%;
+}
+
+/* Footer */
 footer {
   align-items: center;
   display: flex;
   justify-content: center;
 }
+
+/* Header */
 header {
   align-items: center;
   display: flex;
+  justify-content: space-between;
   padding: 1rem;
 }
 
-.container {
-  margin: 0 auto;
-  max-width: 30rem;
-  width: 90%;
+/* MainNav */
+.main-nav ul {
+  display: flex;
+}
+
+.main-nav ul li {
+  margin-left: 1rem;
+}
+
+.main-nav ul li:first-child {
+  margin-left: 0;
+}
+
+/* Post */
+.post {
+  padding: 1rem;
+}
+
+/* PAGES */
+
+/*All Posts */
+.all-posts ul {
+  display: grid;
+  grid-gap: 2rem 1rem;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+/* UTILITIES */
+.underline {
+  border-bottom: 1px solid #c9c9c9;
 }
